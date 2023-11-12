@@ -1,0 +1,13 @@
+{
+    "name": "OwlClock",
+    "version": "1.0.0",
+    "manifest_version": 1,
+    "icon": "/logo.svg", 
+    "action": {
+      "title": "OwlClock",
+      "icon": "/icon.svg",
+      "popover": "/",
+      "height": 300,
+      "width": 300
+    }
+  }
