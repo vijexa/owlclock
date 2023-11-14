@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
+  color: #444;
   overflow: hidden;
 }
 
@@ -38,4 +38,12 @@ body {
 }
 :not(html):not(body)::-webkit-scrollbar-thumb:active {
   background-color: rgba(255, 255, 255, 0.61);
+}
+
+a:link {
+  color: #58a6ff;
+}
+
+a:visited {
+  color: #8e96f0;
 }

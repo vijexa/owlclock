@@ -36,11 +36,21 @@ function App() {
 
   // initialize state
   useEffect(() => {
+    // resize extension window when the content changes
+    const resizeObserver = new ResizeObserver(entries => {
+      entries.map((entry) => {
+        // adding 16px for padding
+        const newHeight = entry.contentRect.height + 16;
+        OBR.action.setHeight(newHeight);
+      });
+    });
+
+    resizeObserver.observe(document.body);
+
     // get initial metadata and set time and favorites
     OBR.room.getMetadata().then((rawMetadata) => {
       const metadata = (rawMetadata as OwlClockMetadata)[NAMESPACE];
 
-      console.log('first run');
       setHistory(metadata.favorites);
       setTime(LocalTime.parse(metadata.time));
     });
@@ -48,15 +58,14 @@ function App() {
     // check if player is a gm
     OBR.player.getRole().then((role) => {
       if (role === 'GM') {
-        console.log('player is a gm!')
         setIsGm(true);
       }
     })
+
+    return () => resizeObserver.unobserve(document.body);
   }, []);
 
   useEffect(() => {
-    console.log('effect');
-
     return OBR.room.onMetadataChange((rawMetadata) => {
       console.log('metadata changed', rawMetadata);
       const metadata = (rawMetadata as OwlClockMetadata)[NAMESPACE];
