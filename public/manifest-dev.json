@@ -1,10 +1,10 @@
 {
-    "name": "OwlClock",
+    "name": "OwlClock-dev",
     "version": "0.0.1",
     "manifest_version": 1,
     "icon": "/owlclock/logo.svg", 
     "action": {
-      "title": "OwlClock",
+      "title": "OwlClock-dev",
       "icon": "/owlclock/icon.svg",
       "popover": "/owlclock/",
       "height": 300,
