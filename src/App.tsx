@@ -8,22 +8,37 @@ import { History } from './History';
 import { TimeInput } from './TimeInput';
 import { Units, calculateNewTime } from './timeUnits';
 
-const NAMESPACE = 'com.github.vijexa.owlclock';
+const NAMESPACE_TIME = 'com.github.vijexa.owlclock/time';
+const NAMESPACE_FAVORITES = 'com.github.vijexa.owlclock/favorites';
 
-type OwlClockMetadata = {
-  [NAMESPACE]: OwlClockMetadataBody;
+function getFavoritesNamespace() {
+  return NAMESPACE_FAVORITES + '@' + OBR.player.id;
 }
 
-type OwlClockMetadataBody = {
-  time: string;
-  favorites: History
+type TimeMetadata = {
+  [NAMESPACE_TIME]: {
+    time: string;
+  }
 }
 
-function saveMetadata(time: LocalTime, favorites: History = []) {
+function saveTimeMetadata(time: LocalTime) {
   return OBR.room.setMetadata({
-    'com.github.vijexa.owlclock': {
-      time: time.toString(),
-      favorites
+    [NAMESPACE_TIME]: {
+      time: time.toString()
+    }
+  });
+}
+
+type FavoritesMetadata = {
+  [key: string]: {
+    favorites: History;
+  }
+}
+
+function saveFavoritesMetadata(favorites: History) {
+  return OBR.room.setMetadata({
+    [getFavoritesNamespace()]: {
+      favorites: favorites
     }
   });
 }
@@ -31,7 +46,6 @@ function saveMetadata(time: LocalTime, favorites: History = []) {
 function App() {
   const [time, setTime] = useState(LocalTime.parse('00:00'));
   const [history, setHistory] = useState<History>([]);
-  const [previousMetadata, setPreviousMetadata] = useState<OwlClockMetadataBody>();
   const [isGm, setIsGm] = useState<boolean>(false);
 
   // initialize state
@@ -47,12 +61,20 @@ function App() {
 
     resizeObserver.observe(document.body);
 
-    // get initial metadata and set time and favorites
     OBR.room.getMetadata().then((rawMetadata) => {
-      const metadata = (rawMetadata as OwlClockMetadata)[NAMESPACE];
+      // get initial time
+      const timeMetadata = (rawMetadata as TimeMetadata)[NAMESPACE_TIME];
 
-      setHistory(metadata.favorites);
-      setTime(LocalTime.parse(metadata.time));
+      if (timeMetadata) {
+        setTime(LocalTime.parse(timeMetadata.time));
+      }
+
+      // get initial favorites
+      const favoritesMetadata = (rawMetadata as FavoritesMetadata)[getFavoritesNamespace()];
+
+      if (favoritesMetadata) {
+        setHistory(favoritesMetadata.favorites);
+      }
     });
 
     // check if player is a gm
@@ -68,30 +90,30 @@ function App() {
   useEffect(() => {
     return OBR.room.onMetadataChange((rawMetadata) => {
       console.log('metadata changed', rawMetadata);
-      const metadata = (rawMetadata as OwlClockMetadata)[NAMESPACE];
+      const timeMetadata = (rawMetadata as TimeMetadata)[NAMESPACE_TIME];
 
-      if (metadata) {
-        console.log('metadata', metadata)
+      if (timeMetadata) {
+        console.log('metadata', timeMetadata)
 
-        if (time.toString() !== metadata.time) {
-          console.log(time.toString(), metadata.time);
-          setTime(LocalTime.parse(metadata.time));
+        if (time.toString() !== timeMetadata.time) {
+          console.log(time.toString(), timeMetadata.time);
+          setTime(LocalTime.parse(timeMetadata.time));
 
-          OBR.notification.show('You feel the passage of time... ' + metadata.time);
-
-          setPreviousMetadata(metadata);
+          OBR.notification.show('You feel the passage of time... ' + timeMetadata.time);
         }
       }
     })
   },
-    [time, previousMetadata]
+    [time]
   )
 
   function processTimeChange(unit: Units, inputValue: number) {
     const newTime = calculateNewTime(time, unit, inputValue);
-    saveMetadata(newTime, previousMetadata?.favorites).then(() => { });
+    saveTimeMetadata(newTime).then(() => { });
+
+    console.log('newtime', newTime.toString());
+
     // check if the history already has this element to not override favorite status
-    //const newHistory = history.has({ unit, inputValue }) ? history : history.set({ unit, inputValue }, false);
     const index = history.findIndex((element) => element.unit === unit && element.inputValue === inputValue);
     console.log('index', index);
     const newHistory = index >= 0
@@ -109,7 +131,7 @@ function App() {
   }
 
   function processTimeSet(newTime: LocalTime) {
-    saveMetadata(newTime, previousMetadata?.favorites).then(() => { });
+    saveTimeMetadata(newTime).then(() => { });
   }
 
   function processFavorite(index: number, isFavorite: boolean) {
@@ -123,7 +145,7 @@ function App() {
     setHistory(newHistory);
 
     const favorites = newHistory.filter((element) => element.isFavorite);
-    saveMetadata(time, favorites).then(() => { });
+    saveFavoritesMetadata(favorites).then(() => { });
   }
 
   console.log('app rendered', time.toString());
