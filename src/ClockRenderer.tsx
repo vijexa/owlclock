@@ -56,6 +56,7 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
           : <Typography
             variant="h3"
             align="center"
+            color='text.primary'
           >
             {timeString}
           </Typography>
