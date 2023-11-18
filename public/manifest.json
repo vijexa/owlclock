@@ -1,6 +1,6 @@
 {
     "name": "OwlClock",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "manifest_version": 1,
     "icon": "/owlclock/logo.svg", 
     "action": {
