@@ -1,7 +1,7 @@
 
 import { LocalTime } from "@js-joda/core";
 import { Box, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 
 interface ClockRendererProps {
   time: LocalTime;
@@ -19,12 +19,20 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
     setTimeEditorValue(time.toString());
   }, [time]);
 
-  function onTimeChangeCaller(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function onTimeChangeCaller(_: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     try {
-      const newTime = LocalTime.parse(event.target.value);
+      const newTime = LocalTime.parse(timeEditorValue);
       onTimeChange(newTime);
     } catch {
       setTimeEditorValue(time.toString());
+    }
+  }
+
+  function onKeyDownHandler(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      // typing issue in react 
+      //@ts-ignore
+      event.target.blur();
     }
   }
 
@@ -51,6 +59,7 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
               }}
               onChange={e => setTimeEditorValue(e.target.value)}
               onBlur={onTimeChangeCaller}
+              onKeyDown={onKeyDownHandler}
             />
           </Box>
           : <Typography
