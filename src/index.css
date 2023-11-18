@@ -40,10 +40,6 @@ body {
   background-color: rgba(255, 255, 255, 0.61);
 }
 
-a:link {
-  color: #58a6ff;
-}
-
-a:visited {
-  color: #8e96f0;
+a, a:visited, a:hover, a:active {
+  color: inherit;
 }

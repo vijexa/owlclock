@@ -1,6 +1,6 @@
-// this whole file is humbly stolen from https://github.com/owlbear-rodeo/initiative-tracker/blob/main/src/PluginGate.tsx
+// most of this file is humbly stolen from https://github.com/owlbear-rodeo/initiative-tracker/blob/main/src/PluginGate.tsx
 
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import OBR from "@owlbear-rodeo/sdk";
 import React, { useEffect, useState } from "react";
 
@@ -17,8 +17,19 @@ export function PluginGate({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // plugin is in OBR and ready 
   if (ready) {
-    return <>{children}</>;
+    return <>{children}</>
+    // plugin in in OBR but not ready
+  } else if (OBR.isAvailable) {
+    return <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh">
+      <CircularProgress color="secondary" />
+    </Box>
+    // plugin is not in OBR
   } else {
     return <Box
       display="flex"

@@ -89,11 +89,9 @@ function App() {
 
   useEffect(() => {
     return OBR.room.onMetadataChange((rawMetadata) => {
-      console.log('metadata changed', rawMetadata);
       const timeMetadata = (rawMetadata as TimeMetadata)[NAMESPACE_TIME];
 
       if (timeMetadata) {
-        console.log('metadata', timeMetadata)
 
         if (time.toString() !== timeMetadata.time) {
           console.log(time.toString(), timeMetadata.time);
@@ -111,11 +109,8 @@ function App() {
     const newTime = calculateNewTime(time, unit, inputValue);
     saveTimeMetadata(newTime).then(() => { });
 
-    console.log('newtime', newTime.toString());
-
     // check if the history already has this element to not override favorite status
     const index = history.findIndex((element) => element.unit === unit && element.inputValue === inputValue);
-    console.log('index', index);
     const newHistory = index >= 0
       ? history
       : [...history, { unit, inputValue, isFavorite: false }];
@@ -125,8 +120,6 @@ function App() {
       newHistory.splice(indexToDelete, 1);
     }
 
-
-    console.log('new history', newHistory);
     setHistory(newHistory);
   }
 
@@ -135,10 +128,8 @@ function App() {
   }
 
   function processFavorite(index: number, isFavorite: boolean) {
-    console.log('processFavorite', index, isFavorite, history);
     const element = history[index];
     const newElement = { ...element, isFavorite };
-    console.log('elements', element, newElement)
     const newHistory = [...history];
     newHistory.splice(index, 1, newElement)
 
@@ -147,8 +138,6 @@ function App() {
     const favorites = newHistory.filter((element) => element.isFavorite);
     saveFavoritesMetadata(favorites).then(() => { });
   }
-
-  console.log('app rendered', time.toString());
 
   return (
     <>
