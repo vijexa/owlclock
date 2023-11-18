@@ -21,7 +21,7 @@ export function Header() {
           <IconButton
             onClick={() => OBR.modal.open({
               id: "rodeo.owlbear.example/modal",
-              url: "/owlclock/info",
+              url: "#/info",
               height: 430,
               width: 400,
             })}
