@@ -19,7 +19,7 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
     setTimeEditorValue(time.toString());
   }, [time]);
 
-  function onTimeChangeCaller(_: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function onTimeChangeCaller() {
     try {
       const newTime = LocalTime.parse(timeEditorValue);
       onTimeChange(newTime);
@@ -30,8 +30,7 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
 
   function onKeyDownHandler(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      // typing issue in react 
-      //@ts-ignore
+      //@ts-expect-error typing issue in react 
       event.target.blur();
     }
   }
