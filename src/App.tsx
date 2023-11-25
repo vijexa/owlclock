@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header isGm={isGm} />
       <Stack
         direction="column"
         spacing={2}

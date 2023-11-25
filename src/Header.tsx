@@ -4,7 +4,11 @@ import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import OBR from "@owlbear-rodeo/sdk";
 
-export function Header() {
+interface HeaderProps {
+  isGm: boolean;
+}
+
+export function Header({ isGm }: HeaderProps) {
   return (
     <>
       <CardHeader
@@ -31,10 +35,11 @@ export function Header() {
           <IconButton
             onClick={() => OBR.modal.open({
               id: "com.github.vijexa.owlclock/settingsModal",
-              url: "/owlclock/#/settings",
-              height: 300,
+              // passing isGm as a query param for more consistent rendering
+              url: "/owlclock/#/settings?isGm=" + isGm,
               width: 300,
-              // this kind of allows to visually resize the modal
+              // there is no way to resize the modal height...
+              height: isGm ? 300 : 220,
               hidePaper: true,
             })}
           >
