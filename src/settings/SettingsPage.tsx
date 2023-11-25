@@ -3,6 +3,7 @@ import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import OBR from "@owlbear-rodeo/sdk";
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { TimeFormat } from "../time";
 import { getSavedHistorySize, getSavedTimeFormat, saveSetttings } from "./settings";
 
@@ -12,11 +13,14 @@ const StyledToggleButton = styled(ToggleButton)({ paddingLeft: '12px', paddingRi
 const CenteredCardActions = styled(CardActions)({ justifyContent: 'center' });
 
 export function SettingsPage() {
+  const [searchParams] = useSearchParams();
+
   const [timeFormat, setTimeFormat] = useState<TimeFormat>(getSavedTimeFormat());
   const [historySize, setHistorySize] = useState(getSavedHistorySize());
-  const [isGm, setIsGm] = useState<boolean>(false);
+  const [isGm, setIsGm] = useState<boolean>(searchParams.get('isGm') === 'true');
 
   useEffect(() => {
+    // confirm gm status
     OBR.player.getRole().then(role => setIsGm(role === 'GM'));
   }, []);
 
@@ -27,7 +31,7 @@ export function SettingsPage() {
 
   return (
     <>
-      <Card sx={{ boxShadow: "none" }}>
+      <Card sx={{ boxShadow: 'none' }}>
         <CardHeader
           title="OwlClock🦉 Settings"
           titleTypographyProps={{

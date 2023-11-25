@@ -20,16 +20,14 @@ export function InfoPage() {
         />
         <Divider variant="middle" />
         <CardContent>
-          <Typography
-
-          >
+          <Typography>
             This extension provides a simple way to keep track of in-game time during the day.
           </Typography>
           <br />
           <Typography>
             You can edit the time directly by editing it in the text field, or by using the "Add" field
             and "Hours"/"Minutes" buttons. The time will be saved in room data. Only GM can edit the time.
-            Temporarily only 24-hour (ISO) time format is supported.
+            You can switch between 24-hour and 12-hour time format in the settings.
           </Typography>
           <br />
           <Typography>
