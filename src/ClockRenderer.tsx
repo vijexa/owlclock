@@ -1,30 +1,32 @@
 
-import { LocalTime } from "@js-joda/core";
+
+import { DateTimeFormatter, LocalTime } from "@js-joda/core";
 import { Box, TextField, Typography } from "@mui/material";
 import { KeyboardEvent, useEffect, useState } from "react";
 
 interface ClockRendererProps {
   time: LocalTime;
   isEditable: boolean;
+  formatter: DateTimeFormatter;
   onTimeChange: (time: LocalTime) => void;
 }
 
 
-export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererProps) {
-  const [timeEditorValue, setTimeEditorValue] = useState<string>(time.toString());
-  // date rendered as 24-hour time in HH:MM format
-  const timeString = time.toString();
+export function ClockRenderer({ time, isEditable, formatter, onTimeChange }: ClockRendererProps) {
+  const timeString = time.format(formatter);
+  const [timeEditorValue, setTimeEditorValue] = useState<string>(timeString);
 
   useEffect(() => {
-    setTimeEditorValue(time.toString());
-  }, [time]);
+    setTimeEditorValue(time.format(formatter));
+  }, [time, formatter]);
 
   function onTimeChangeCaller() {
     try {
-      const newTime = LocalTime.parse(timeEditorValue);
+      const formattedTime = timeEditorValue.toUpperCase();
+      const newTime = LocalTime.parse(formattedTime, formatter);
       onTimeChange(newTime);
     } catch {
-      setTimeEditorValue(time.toString());
+      setTimeEditorValue(time.format(formatter));
     }
   }
 
@@ -49,7 +51,7 @@ export function ClockRenderer({ time, isEditable, onTimeChange }: ClockRendererP
               value={timeEditorValue}
               sx={{
                 marginBottom: '16px',
-                width: '200px',
+                width: '210px',
                 '& input': {
                   textAlign: 'center',
                   fontSize: '3rem',

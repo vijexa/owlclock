@@ -1,4 +1,4 @@
-import { InfoOutlined } from "@mui/icons-material";
+import { InfoOutlined, SettingsOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
@@ -17,10 +17,10 @@ export function Header() {
             color: "text.primary",
           },
         }}
-        action={
+        action={<>
           <IconButton
             onClick={() => OBR.modal.open({
-              id: "rodeo.owlbear.example/modal",
+              id: "com.github.vijexa.owlclock/infoModal",
               url: "/owlclock/#/info",
               height: 430,
               width: 400,
@@ -28,6 +28,19 @@ export function Header() {
           >
             <InfoOutlined></InfoOutlined>
           </IconButton>
+          <IconButton
+            onClick={() => OBR.modal.open({
+              id: "com.github.vijexa.owlclock/settingsModal",
+              url: "/owlclock/#/settings",
+              height: 300,
+              width: 300,
+              // this kind of allows to visually resize the modal
+              hidePaper: true,
+            })}
+          >
+            <SettingsOutlined></SettingsOutlined>
+          </IconButton>
+        </>
         }
       />
       <Divider variant="middle" />

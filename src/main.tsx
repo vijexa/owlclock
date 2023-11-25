@@ -6,6 +6,7 @@ import "./index.css";
 import { InfoPage } from "./info/InfoPage";
 import { PluginGate } from "./PluginGate";
 import { PluginThemeProvider } from "./PluginThemeProvider";
+import { SettingsPage } from "./settings/SettingsPage";
 
 const router = createHashRouter([
   {
@@ -15,6 +16,10 @@ const router = createHashRouter([
   {
     path: "/info",
     element: <InfoPage />,
+  },
+  {
+    path: "/settings",
+    element: <SettingsPage />,
   }
 ]);
 
