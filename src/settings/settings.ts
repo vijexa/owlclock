@@ -11,7 +11,6 @@ export function getSavedTimeFormat(): TimeFormat {
     return storedTimeFormat;
   } else {
     const locale = navigator.language;
-    console.log('settings not found, assuming from locale: ', locale);
     return Intl.DateTimeFormat(locale, { hour: 'numeric' }).resolvedOptions().hour12
       ? TimeFormat.H12
       : TimeFormat.H24;

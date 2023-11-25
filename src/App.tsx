@@ -133,7 +133,6 @@ function subscribeToTimeChanges(time: LocalTime, setTime: React.Dispatch<React.S
     const timeMetadata = (rawMetadata as TimeMetadata)[NAMESPACE_TIME];
 
     if (timeMetadata) {
-      console.log(time.toString(), timeMetadata.time);
       if (time.toString() !== timeMetadata.time) {
         const parsedTime = LocalTime.parse(timeMetadata.time);
 
