@@ -32,5 +32,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </PluginGate>
   </React.StrictMode>
 );
-
-const unused = 0;
