@@ -6,15 +6,10 @@ import { ClockRenderer } from './ClockRenderer';
 import { Header } from './Header';
 import { History } from './History';
 import { TimeInput } from './TimeInput';
-import { getSavedHistorySize, getSavedTimeFormat } from './settings/settings';
+import { getSavedFavorites, getSavedHistorySize, getSavedTimeFormat, saveFavorites } from './settings/settings';
 import { TimeFormat, Units, calculateNewTime, getFormatter } from './time';
 
 const NAMESPACE_TIME = 'com.github.vijexa.owlclock/time';
-const NAMESPACE_FAVORITES = 'com.github.vijexa.owlclock/favorites';
-
-function getFavoritesNamespace() {
-  return NAMESPACE_FAVORITES + '@' + OBR.player.id;
-}
 
 type TimeMetadata = {
   [NAMESPACE_TIME]: {
@@ -30,19 +25,6 @@ function saveTimeMetadata(time: LocalTime) {
   });
 }
 
-type FavoritesMetadata = {
-  [key: string]: {
-    favorites: History;
-  }
-}
-
-function saveFavoritesMetadata(favorites: History) {
-  return OBR.room.setMetadata({
-    [getFavoritesNamespace()]: {
-      favorites: favorites
-    }
-  });
-}
 
 function App() {
   const [time, setTime] = useState(LocalTime.parse('00:00'));
@@ -119,7 +101,7 @@ function getProcessFavoriteCallback(history: History, setHistory: React.Dispatch
     setHistory(newHistory);
 
     const favorites = newHistory.filter((element) => element.isFavorite);
-    saveFavoritesMetadata(favorites).then(() => { });
+    saveFavorites(favorites);
   }
 }
 
@@ -190,10 +172,10 @@ function initializeState(
     }
 
     // get initial favorites
-    const favoritesMetadata = (rawMetadata as FavoritesMetadata)[getFavoritesNamespace()];
+    const favorites = getSavedFavorites();
 
-    if (favoritesMetadata) {
-      setHistory(favoritesMetadata.favorites);
+    if (favorites) {
+      setHistory(favorites);
     }
   });
 
