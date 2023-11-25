@@ -2,7 +2,7 @@
 import { LocalTime } from "@js-joda/core";
 import { Button, ButtonGroup, Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import { Units } from "./timeUnits";
+import { Units } from "./time";
 
 interface TimeInputProps {
   time: LocalTime;

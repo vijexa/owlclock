@@ -1,6 +1,6 @@
 import { FavoriteBorder } from "@mui/icons-material";
 import { Button, ButtonGroup, Stack } from "@mui/material";
-import { Units } from "./timeUnits";
+import { Units } from "./time";
 
 export type HistoryElement = {
   unit: Units;
