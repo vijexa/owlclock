@@ -1,7 +1,17 @@
 # OwlClock 🦉
 
-This is a simple in-game clock for [owlbear.rodeo](https://owlbear.rodeo). It's a work in progress, but it's functional. 
+This is a simple in-game clock for [owlbear.rodeo](https://owlbear.rodeo). 
 
-# Installation 
+## Functions
 
-Link to manifest https://owlclock.vijexa.dev/manifest.json
+It helps you track your in-game time and sync it with other players in the same room. You can edit the time directly by editing it in the text field, or by using the "Add" field and "Hours"/"Minutes" buttons. The time will be saved in room data. Only GM can edit the time. You can switch between 24-hour and 12-hour time format in the settings.
+
+### Todo:
+
+- [ ] add support for custom sunset/sunrise times, show them somewhere and notify players when it happens.
+- [ ] <em>maybe</em> add some kind of calendar support. It'll probably not be a full calendar, but rather a way to track days passed since the start of the game or some other point in time. Maybe even add support for events/deadlines, like "impeding apocalypse in 30 days". Full calendar support is probably not going to happen, because it's a **ton** of work considering all the different ways GMs customize their homebrew worlds with homebrew calendars and I don't think it's worth it.
+
+## Installation 
+
+Go to extensions page on Owlbear Rodeo, click add custom extension and put this link to manifest:
+https://owlclock.vijexa.dev/manifest.json
