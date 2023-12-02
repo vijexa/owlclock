@@ -9,7 +9,7 @@ import { TimeInput } from './TimeInput';
 import { getSavedFavorites, getSavedHistorySize, getSavedTimeFormat, saveFavorites } from './settings/settings';
 import { TimeFormat, Units, calculateNewTime, getFormatter } from './time';
 
-const NAMESPACE_TIME = 'com.github.vijexa.owlclock/time';
+const NAMESPACE_TIME = 'dev.vijexa.owlclock/time';
 
 type TimeMetadata = {
   [NAMESPACE_TIME]: {

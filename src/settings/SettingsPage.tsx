@@ -99,5 +99,5 @@ export function SettingsPage() {
 
 function onSaveClick(timeFormat: TimeFormat, historySize: number) {
   saveSetttings(timeFormat, historySize);
-  OBR.modal.close("com.github.vijexa.owlclock/settingsModal");
+  OBR.modal.close("dev.vijexa.owlclock/settingsModal");
 }

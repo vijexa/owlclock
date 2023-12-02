@@ -4,4 +4,4 @@ This is a simple in-game clock for [owlbear.rodeo](https://owlbear.rodeo). It's 
 
 # Installation 
 
-Link to manifest https://vijexa.github.io/owlclock/manifest.json
+Link to manifest https://owlclock.vijexa.dev/manifest.json

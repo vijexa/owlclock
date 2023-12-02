@@ -24,8 +24,8 @@ export function Header({ isGm }: HeaderProps) {
         action={<>
           <IconButton
             onClick={() => OBR.modal.open({
-              id: "com.github.vijexa.owlclock/infoModal",
-              url: "/owlclock/#/info",
+              id: "dev.vijexa.owlclock/infoModal",
+              url: "/#/info",
               height: 430,
               width: 400,
             })}
@@ -34,9 +34,9 @@ export function Header({ isGm }: HeaderProps) {
           </IconButton>
           <IconButton
             onClick={() => OBR.modal.open({
-              id: "com.github.vijexa.owlclock/settingsModal",
+              id: "dev.vijexa.owlclock/settingsModal",
               // passing isGm as a query param for more consistent rendering
-              url: "/owlclock/#/settings?isGm=" + isGm,
+              url: "/#/settings?isGm=" + isGm,
               width: 300,
               // there is no way to resize the modal height...
               height: isGm ? 300 : 220,
