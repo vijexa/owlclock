@@ -46,3 +46,4 @@ jobs:
           external_repository: vijexa/owlclock-dev-deployment
           publish_branch: gh-pages
           publish_dir: ./dist
+          cname: owlclock-dev.vijexa.dev
