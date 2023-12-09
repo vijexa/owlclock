@@ -21,15 +21,29 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
+
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build --if-present
       - name: Deploy to external
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: vijexa/owlclock-dev-deployment
           publish_branch: gh-pages
-          publish_dir: ./public
+          publish_dir: ./dist
+          destination_dir: ./deployment
