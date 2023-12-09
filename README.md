@@ -11,7 +11,7 @@ It helps you track your in-game time and sync it with other players in the same 
 ### Todo:
 
 - [ ] add support for custom sunset/sunrise times, show them somewhere and notify players when it happens.
-- [ ] <em>maybe</em> add some kind of calendar support. It'll probably not be a full calendar, but rather a way to track days passed since the start of the game or some other point in time. Maybe even add support for events/deadlines, like "impeding apocalypse in 30 days". Full calendar support is probably not going to happen, because it's a **ton** of work considering all the different ways GMs customize their homebrew worlds with homebrew calendars and I don't think it's worth it.
+- [x] ~~<em>maybe</em> add some kind of calendar support. It'll probably not be a full calendar, but rather a way to track days passed since the start of the game or some other point in time. Maybe even add support for events/deadlines, like "impeding apocalypse in 30 days". Full calendar support is probably not going to happen, because it's a **ton** of work considering all the different ways GMs customize their homebrew worlds with homebrew calendars and I don't think it's worth it.~~ There is a "Calendar!" extension now from "Battle-System"! You can enable integration with it in the settings.
 
 ## Installation 
 
