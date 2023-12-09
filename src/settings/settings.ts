@@ -3,6 +3,8 @@ import { TimeFormat } from "../time";
 
 export const TIME_FORMAT_KEY = 'timeFormat';
 export const HISTORY_SIZE_KEY = 'historySize';
+export const INTEGRATE_WITH_CALENDAR_KEY = 'integrateWithCalendar';
+export const CHANGE_DATE_ON_TEXT_INPUT = 'changeDateOnTextInput';
 export const FAVORITES_KEY = 'favorites';
 
 export function getSavedTimeFormat(): TimeFormat {
@@ -45,11 +47,23 @@ export function getSavedFavorites(): History {
   return [];
 }
 
+export function getSavedIntegrateWithCalendar(): boolean {
+  const storedIntegrateWithCalendar = localStorage.getItem(INTEGRATE_WITH_CALENDAR_KEY);
+  return storedIntegrateWithCalendar === 'true';
+}
+
+export function getSavedChangeDateOnTextInput(): boolean {
+  const storedChangeDateOnTextInput = localStorage.getItem(CHANGE_DATE_ON_TEXT_INPUT);
+  return storedChangeDateOnTextInput === 'true';
+}
+
 export function saveFavorites(favorites: History) {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
 }
 
-export function saveSetttings(timeFormat: TimeFormat, historySize: number) {
+export function saveSetttings(timeFormat: TimeFormat, historySize: number, integrateWithCalendar: boolean, changeDateOnTextInput: boolean) {
   localStorage.setItem(TIME_FORMAT_KEY, timeFormat);
   localStorage.setItem(HISTORY_SIZE_KEY, historySize.toString());
+  localStorage.setItem(INTEGRATE_WITH_CALENDAR_KEY, integrateWithCalendar.toString());
+  localStorage.setItem(CHANGE_DATE_ON_TEXT_INPUT, changeDateOnTextInput.toString());
 }

@@ -38,7 +38,7 @@ export function PluginGate({ children }: { children: React.ReactNode }) {
       height="100vh"
       sx={{ backgroundColor: '#0d1117' }}
     >
-      <Typography fontSize="1.5rem" color="#c9d1d9">
+      <Typography fontSize="1.5rem" color="#c9d1d9" padding="16px">
         This is not a standalone website, but an extension
         for <a href="https://owlbear.rodeo">owlbear.rodeo</a> VTT.
         More info <a href="https://github.com/vijexa/owlclock">here</a>.
