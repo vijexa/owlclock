@@ -31,6 +31,11 @@ export function InfoPage() {
           </Typography>
           <br />
           <Typography>
+            There is an integration with the "Calendar!" extension! You can enable it in "OwlClock" settings.
+            It will change the date when time passes midnight.
+          </Typography>
+          <br />
+          <Typography>
             If there are any bugs, feel free to <a href="https://github.com/vijexa/owlclock/issues/new" target="_blank">open an issue</a> on GitHub. Contributions are welcome!
           </Typography>
         </CardContent>
