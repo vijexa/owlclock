@@ -1,7 +1,8 @@
 import { GitHub } from "@mui/icons-material";
-import { Button, CardActions, CardContent, Typography } from "@mui/material";
+import { Box, Button, CardActions, CardContent, Typography } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
+import { IS_PROD } from "../env";
 import { ModalCard } from "../modal/ModalCard";
 import { INFO_MODAL_ID } from "../modal/modal";
 
@@ -41,14 +42,18 @@ export function InfoPage() {
         </Typography>
       </CardContent>
       <CardActions>
-
         <Button
           startIcon={<GitHub />}
-          sx={{ color: 'text.primary' }}
+          sx={{ color: 'text.primary', marginLeft: '8px' }}
           href="https://github.com/vijexa/owlclock"
           target="_blank" >
           GitHub
         </Button>
+        <Box marginLeft="auto" marginRight="16px">
+          <Typography color="text.secondary">
+            v{APP_VERSION}{IS_PROD ? "" : " (dev build)"}
+          </Typography>
+        </Box>
       </CardActions>
     </ModalCard>
   );

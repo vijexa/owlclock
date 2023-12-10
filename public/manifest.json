@@ -1,13 +1,14 @@
 {
-    "name": "OwlClock",
-    "version": "1.0.0",
-    "manifest_version": 1,
-    "icon": "/logo.svg", 
-    "action": {
-      "title": "OwlClock",
-      "icon": "/icon.svg",
-      "popover": "/",
-      "height": 300,
-      "width": 300
-    }
+  "name": "OwlClock-dev-local",
+  "version": "x.x.x",
+  "manifest_version": 1,
+  "icon": "/logo.svg",
+  "description": "A simple in-game clock.",
+  "action": {
+    "title": "OwlClock-dev-local",
+    "icon": "/icon.svg",
+    "popover": "/",
+    "height": 300,
+    "width": 300
   }
+}
