@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import OBR from "@owlbear-rodeo/sdk";
+import { IS_PROD } from "./env";
 import { INFO_MODAL_ID, SETTINGS_MODAL_ID } from "./modal/modal";
 
 interface HeaderProps {
@@ -13,7 +14,7 @@ export function Header({ isGm }: HeaderProps) {
   return (
     <>
       <CardHeader
-        title="OwlClock🦉"
+        title={IS_PROD ? "OwlClock🦉" : "OwlClock🦉 (dev)"}
         titleTypographyProps={{
           sx: {
             fontSize: "1.125rem",
