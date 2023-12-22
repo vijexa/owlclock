@@ -6,6 +6,7 @@ import { ClockRenderer } from './ClockRenderer';
 import { Header } from './Header';
 import { History } from './History';
 import { TimeInput } from './TimeInput';
+import { getLastReadChangelogVersion } from './changelog/changelog';
 import { getSavedChangeDateOnTextInput, getSavedFavorites, getSavedHistorySize, getSavedIntegrateWithCalendar, getSavedTimeFormat, saveFavorites } from './settings/settings';
 import { TimeFormat, Units, calculateDaysPassed, calculateDaysPassedOnTextInput, calculateNewTime, getFormatter } from './time';
 
@@ -47,8 +48,9 @@ function App() {
   const [historySize, setHistorySize] = useState(getSavedHistorySize());
   const [integrateWithCalendar, setIntegrateWithCalendar] = useState<boolean>(getSavedIntegrateWithCalendar());
   const [changeDateOnTextInput, setChangeDateOnTextInput] = useState<boolean>(getSavedChangeDateOnTextInput());
+  const [lastReadChangelogVersion, setLastReadChangelogVersion] = useState<string>(getLastReadChangelogVersion());
 
-  useEffect(() => initializeState(setTime, setHistory, setIsGm, setTimeFormat, setHistorySize, setIntegrateWithCalendar, setChangeDateOnTextInput), []);
+  useEffect(() => initializeState(setTime, setHistory, setIsGm, setTimeFormat, setHistorySize, setIntegrateWithCalendar, setChangeDateOnTextInput, setLastReadChangelogVersion), []);
 
   const formatter = getFormatter(timeFormat);
 
@@ -59,7 +61,7 @@ function App() {
 
   return (
     <Stack id="mainContainer" direction="column" height="100vh">
-      <Header isGm={isGm} />
+      <Header isGm={isGm} lastReadChangelogVersion={lastReadChangelogVersion} />
       <Stack
         direction="column"
         spacing={2}
@@ -187,7 +189,9 @@ function initializeState(
   setTimeFormat: React.Dispatch<React.SetStateAction<TimeFormat>>,
   setHistorySize: React.Dispatch<React.SetStateAction<number>>,
   setIntegrateWithCalendar: React.Dispatch<React.SetStateAction<boolean>>,
-  setChangeDateOnTextInput: React.Dispatch<React.SetStateAction<boolean>>
+  setChangeDateOnTextInput: React.Dispatch<React.SetStateAction<boolean>>,
+  setLastReadChangelogVersion: React.Dispatch<React.SetStateAction<string>>,
+
 ) {
   // resize extension window when the content changes
   const resizeObserver = new ResizeObserver(() => {
@@ -229,6 +233,7 @@ function initializeState(
     setHistorySize(getSavedHistorySize());
     setIntegrateWithCalendar(getSavedIntegrateWithCalendar());
     setChangeDateOnTextInput(getSavedChangeDateOnTextInput());
+    setLastReadChangelogVersion(getLastReadChangelogVersion());
   });
 
 

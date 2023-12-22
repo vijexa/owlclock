@@ -15,7 +15,7 @@ export function ModalCard({ modalId, children }: ModalBoxProps) {
         alignItems="center"
         width="100vw"
         height="100vh"
-        onClick={() => OBR.modal.close(modalId)}
+        onMouseDown={() => OBR.modal.close(modalId)}
     >
         <Card
             sx={{
@@ -25,7 +25,7 @@ export function ModalCard({ modalId, children }: ModalBoxProps) {
                 margin: '16px',
                 overflowY: 'auto',
             }}
-            onClick={e => e.stopPropagation()}
+            onMouseDown={e => e.stopPropagation()}
         >
             {children}
         </Card>

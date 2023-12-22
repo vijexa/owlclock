@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import { ChangelogPage } from "./changelog/ChangelogPage";
 import "./index.css";
 import { InfoPage } from "./info/InfoPage";
 import { PluginGate } from "./PluginGate";
@@ -12,6 +13,10 @@ const router = createHashRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/changelog",
+    element: <ChangelogPage />,
   },
   {
     path: "/info",
