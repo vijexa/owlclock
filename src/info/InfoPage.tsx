@@ -2,7 +2,7 @@ import { GitHub } from "@mui/icons-material";
 import { Box, Button, CardActions, CardContent, Typography } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
-import { IS_PROD } from "../env";
+import { VERSION_FORMATTED } from "../env";
 import { ModalCard } from "../modal/ModalCard";
 import { INFO_MODAL_ID } from "../modal/modal";
 
@@ -51,7 +51,7 @@ export function InfoPage() {
         </Button>
         <Box marginLeft="auto" marginRight="16px">
           <Typography color="text.secondary">
-            v{APP_VERSION}{IS_PROD ? "" : " (dev build)"}
+            {VERSION_FORMATTED}
           </Typography>
         </Box>
       </CardActions>
