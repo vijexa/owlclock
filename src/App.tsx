@@ -84,7 +84,7 @@ function App() {
         direction="column"
         spacing={2}
         sx={{
-          padding: '16px',
+          padding: '16px 8px',
           overflowY: 'auto',
           flexShrink: 1,
         }}
