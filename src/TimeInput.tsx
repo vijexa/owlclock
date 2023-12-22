@@ -39,6 +39,8 @@ export function TimeInput({ onTimeChange }: TimeInputProps) {
         direction="row"
         alignItems="center"
         justifyContent="center"
+        flexWrap="wrap"
+        rowGap="8px"
         spacing={1}
       >
         <TextField
