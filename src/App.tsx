@@ -1,7 +1,7 @@
 import { DateTimeFormatter, LocalTime } from '@js-joda/core';
 import { Stack } from '@mui/material';
 import OBR from '@owlbear-rodeo/sdk';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ClockRenderer } from './ClockRenderer';
 import { Header } from './Header';
 import { History } from './History';
@@ -40,6 +40,9 @@ function saveTimeMetadata(time: LocalTime, calendarIncrement: number, integrateW
 
 
 function App() {
+  const mainContainerRef = useRef(null);
+  const contentContainerRef = useRef(null);
+
   const [time, setTime] = useState(LocalTime.parse('00:00'));
   const [lastVerificationTimestamp, setLastVerificationTimestamp] = useState(0);
   const [history, setHistory] = useState<History>([]);
@@ -50,7 +53,21 @@ function App() {
   const [changeDateOnTextInput, setChangeDateOnTextInput] = useState<boolean>(getSavedChangeDateOnTextInput());
   const [lastReadChangelogVersion, setLastReadChangelogVersion] = useState<string>(getLastReadChangelogVersion());
 
-  useEffect(() => initializeState(setTime, setHistory, setIsGm, setTimeFormat, setHistorySize, setIntegrateWithCalendar, setChangeDateOnTextInput, setLastReadChangelogVersion), []);
+  useEffect(
+    () => initializeState(
+      setTime,
+      setHistory,
+      setIsGm,
+      setTimeFormat,
+      setHistorySize,
+      setIntegrateWithCalendar,
+      setChangeDateOnTextInput,
+      setLastReadChangelogVersion,
+      mainContainerRef,
+      contentContainerRef
+    ),
+    []
+  );
 
   const formatter = getFormatter(timeFormat);
 
@@ -60,9 +77,10 @@ function App() {
   const processTimeSetCallback = processTimeSet(time, integrateWithCalendar, changeDateOnTextInput);
 
   return (
-    <Stack id="mainContainer" direction="column" height="100vh">
+    <Stack ref={mainContainerRef} direction="column" height="100vh">
       <Header isGm={isGm} lastReadChangelogVersion={lastReadChangelogVersion} />
       <Stack
+        ref={contentContainerRef}
         direction="column"
         spacing={2}
         sx={{
@@ -191,18 +209,20 @@ function initializeState(
   setIntegrateWithCalendar: React.Dispatch<React.SetStateAction<boolean>>,
   setChangeDateOnTextInput: React.Dispatch<React.SetStateAction<boolean>>,
   setLastReadChangelogVersion: React.Dispatch<React.SetStateAction<string>>,
-
+  mainContainerRef: React.RefObject<HTMLDivElement>,
+  contentContainerRef: React.RefObject<HTMLDivElement>
 ) {
   // resize extension window when the content changes
   const resizeObserver = new ResizeObserver(() => {
     let totalHeight = 0;
-    document.getElementById('mainContainer')!.childNodes.forEach((element) => {
+    mainContainerRef.current?.childNodes.forEach((element) => {
       totalHeight += (element as HTMLElement).scrollHeight;
     })
+
     OBR.action.setHeight(totalHeight + 1);
   });
 
-  resizeObserver.observe(document.body);
+  resizeObserver.observe(contentContainerRef.current!);
 
   OBR.room.getMetadata().then((rawMetadata) => {
     // get initial time
