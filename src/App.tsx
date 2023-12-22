@@ -58,13 +58,15 @@ function App() {
   const processTimeSetCallback = processTimeSet(time, integrateWithCalendar, changeDateOnTextInput);
 
   return (
-    <>
+    <Stack id="mainContainer" direction="column" height="100vh">
       <Header isGm={isGm} />
       <Stack
         direction="column"
         spacing={2}
         sx={{
-          marginTop: '16px',
+          padding: '16px',
+          overflowY: 'auto',
+          flexShrink: 1,
         }}
       >
         <ClockRenderer
@@ -88,7 +90,7 @@ function App() {
             : <></>
         }
       </Stack >
-    </>
+    </Stack>
   )
 }
 
@@ -188,12 +190,12 @@ function initializeState(
   setChangeDateOnTextInput: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   // resize extension window when the content changes
-  const resizeObserver = new ResizeObserver(entries => {
-    entries.map((entry) => {
-      // adding 16px for padding
-      const newHeight = entry.contentRect.height + 16;
-      OBR.action.setHeight(newHeight);
-    });
+  const resizeObserver = new ResizeObserver(() => {
+    let totalHeight = 0;
+    document.getElementById('mainContainer')!.childNodes.forEach((element) => {
+      totalHeight += (element as HTMLElement).scrollHeight;
+    })
+    OBR.action.setHeight(totalHeight + 1);
   });
 
   resizeObserver.observe(document.body);

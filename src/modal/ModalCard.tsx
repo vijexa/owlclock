@@ -18,7 +18,13 @@ export function ModalCard({ modalId, children }: ModalBoxProps) {
         onClick={() => OBR.modal.close(modalId)}
     >
         <Card
-            sx={{ boxShadow: 'none', maxWidth: '400px', margin: '16px' }}
+            sx={{
+                boxShadow: 'none',
+                maxWidth: '400px',
+                maxHeight: '70vh',
+                margin: '16px',
+                overflowY: 'auto',
+            }}
             onClick={e => e.stopPropagation()}
         >
             {children}
