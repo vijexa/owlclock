@@ -213,15 +213,19 @@ function initializeState(
   contentContainerRef: React.RefObject<HTMLDivElement>
 ) {
   // resize extension window when the content changes
-  const resizeObserver = new ResizeObserver(() => {
+  const observersCallback = () => {
     let totalHeight = 0;
     mainContainerRef.current?.childNodes.forEach((element) => {
       totalHeight += (element as HTMLElement).scrollHeight;
-    })
+    });
 
     OBR.action.setHeight(totalHeight + 1);
-  });
+  }
 
+  const mutationObserver = new MutationObserver(observersCallback);
+  const resizeObserver = new ResizeObserver(observersCallback);
+
+  mutationObserver.observe(contentContainerRef.current!, { childList: true, subtree: true });
   resizeObserver.observe(contentContainerRef.current!);
 
   OBR.room.getMetadata().then((rawMetadata) => {
@@ -257,6 +261,9 @@ function initializeState(
   });
 
 
-  return () => resizeObserver.unobserve(document.body);
+  return () => {
+    resizeObserver.disconnect();
+    mutationObserver.disconnect();
+  }
 }
 
