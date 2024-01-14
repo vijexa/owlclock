@@ -5,7 +5,7 @@ author: vijexa
 image: https://owlclock.vijexa.dev/hero_image.png
 icon: https://owlclock.vijexa.dev/icon.svg
 tags:
-  - Tool
+  - tool
 manifest: https://owlclock.vijexa.dev/manifest.json
 learn-more: https://github.com/vijexa/owlclock
 ---
