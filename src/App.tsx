@@ -9,6 +9,7 @@ import { TimeInput } from './TimeInput';
 import { getLastReadChangelogVersion } from './changelog/changelog';
 import { getSavedChangeDateOnTextInput, getSavedFavorites, getSavedHistorySize, getSavedIntegrateWithCalendar, getSavedTimeFormat, saveFavorites } from './settings/settings';
 import { TimeFormat, Units, calculateDaysPassed, calculateDaysPassedOnTextInput, calculateNewTime, getFormatter } from './time';
+import { Events } from './Events';
 
 const NAMESPACE_TIME = 'dev.vijexa.owlclock/time';
 const NAMESPACE_CALENDAR_INTEGRATION = 'com.battle-system.calendar-integrate/data';
@@ -106,6 +107,7 @@ function App() {
                 onFavorite={getProcessFavoriteCallback(history, setHistory)}
                 onTimeChange={processTimeChangeCallback}
               />
+              <Events />
             </>
             : <></>
         }
